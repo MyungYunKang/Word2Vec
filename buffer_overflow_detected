@@ -1,0 +1,17 @@
+Word2Vec를 실행할 때 아래와 같은 오류가 발생할 수 있다.
+
+*** buffer overflow detected ***: /path/to/bin/word2vec terminated
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x777e5)[0x7f23ca09f7e5]
+/lib/x86_64-linux-gnu/libc.so.6(__fortify_fail+0x5c)[0x7f23ca14056c]
+/lib/x86_64-linux-gnu/libc.so.6(+0x116570)[0x7f23ca13e570]
+/lib/x86_64-linux-gnu/libc.so.6(+0x1158c2)[0x7f23ca13d8c2]
+/data/msca/MiningSearch/MiningSearchTextMiner/script/../bin/word2vec[0x4010a5]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf0)[0x7f23ca048830]
+/data/msca/MiningSearch/MiningSearchTextMiner/script/../bin/word2vec[0x401749]
+
+이는 Word2Vec에서 입력을 받는 Char Array의 크기보다 큰 데이터가 들어오기 때문에 에러가 발생한다.
+
+이를 해결하기 위해서는 word2vec.c 파일에서 define된 Max_String값을 올려주면 해결된다.
+
+참고 사이트 : https://groups.google.com/forum/#!topic/word2vec-toolkit/ZWPsg8O5PV4
